@@ -43,22 +43,28 @@ def getJobEntry(jobTitleDiv, soup, num):
 def main(job, location):
     url = getURL(job, location)
 
-    while True: 
-        # Parse URL into BeautifulSoup
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, "html.parser")
+    header = ["Job Title", 'Company', 'Location', 'Job Description']
 
-        jobTitleDiv = soup.find_all("div", "heading4")
-        
-        # Parse all job entries on page
-        for x in range(len(jobTitleDiv)):
-            jobEntry = getJobEntry(jobTitleDiv, soup, x)
-            print(jobEntry)
-        
-        try:
-            url = "https://sg.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
-            sleep(randint(1,8))
-        except AttributeError:
-            break
+    with open('output.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+
+        while True: 
+            # Parse URL into BeautifulSoup
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, "html.parser")
+
+            jobTitleDiv = soup.find_all("div", "heading4")
+            
+            # Parse all job entries on page
+            for x in range(len(jobTitleDiv)):
+                jobEntry = getJobEntry(jobTitleDiv, soup, x)
+                writer.writerow(jobEntry)
+            
+            try:
+                url = "https://sg.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
+                sleep(randint(1,8))
+            except AttributeError:
+                break 
 
 main("chief executive officer", "ang mo kio")
