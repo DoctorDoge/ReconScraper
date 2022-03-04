@@ -6,8 +6,11 @@ from random import randint
 from time import sleep
 
 # Get URL from user input
-def getURL(job, location):
-    urlString = "https://sg.indeed.com/jobs?q={}&l={}"
+def getURL(job, location, version):
+    if version == 1:
+        urlString = "https://www.indeed.com/jobs?q={}&l={}"
+    elif version == 2:
+        urlString = "https://sg.indeed.com/jobs?q={}&l={}"
     url = urlString.format(job, location)
     return url
 
@@ -40,8 +43,8 @@ def getJobEntry(jobTitleDiv, soup, num):
     
     return jobEntry
 
-def main(job, location):
-    url = getURL(job, location)
+def main(job, location, version):
+    url = getURL(job, location, version)
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
 
@@ -63,10 +66,13 @@ def main(job, location):
                 writer.writerow(jobEntry)
             
             try:
-                url = "https://sg.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
+                if version == 1:
+                    url = "https://www.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
+                elif version == 2:
+                    url = "https://sg.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
                 sleep(randint(1,8))
             except AttributeError:
                 break 
 
 # Example inputs
-main("chief executive officer", "ang mo kio")
+main("c programmer", "texas", 1)
