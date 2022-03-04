@@ -45,6 +45,7 @@ def main(job, location):
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
 
+    # Save output to CSV file
     with open('output.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)
@@ -67,4 +68,5 @@ def main(job, location):
             except AttributeError:
                 break 
 
+# Example inputs
 main("chief executive officer", "ang mo kio")
