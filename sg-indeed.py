@@ -22,19 +22,19 @@ def getJobEntry(jobTitleDiv, soup, num):
     try:
         jobCompany = soup.find_all("span", "companyName")[num].text
     except IndexError:
-        jobCompany = ""
+        jobCompany = "Not Found"
 
     try:
         # Check if "+ location" is in span
         jobLocation = soup.find_all("div", "companyLocation")[num].text
         jobLocation = re.sub('\+.*','',jobLocation)
     except IndexError:
-        jobLocation = ""
+        jobLocation = "Not Found"
 
     try:
         jobDescription = soup.find_all("div", "job-snippet")[num].text.strip()
     except IndexError:
-        jobDescription = ""
+        jobDescription = "Not Found"
 
     jobEntry = (jobTitle, jobCompany, jobLocation, jobDescription)
     
