@@ -92,7 +92,7 @@ def main(job, location, locationID, version):
     header = ["Job Title", 'Company', 'Location', 'Job Description']
 
     # Save output to CSV file
-    with open('output-glassdoor.csv', 'w', newline='') as f:
+    with open('output-glassdoor.csv', 'w', newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(header)
  
@@ -111,4 +111,4 @@ def main(job, location, locationID, version):
 # Example inputs
 #main("software", "orchard", "7_IC4842485_KO8", 2)
 #main("software", "", "", 2)
-main("software programmer", "california", "10_IS2280_KO11", 1)
+main("software", "california", "10_IS2280_KO11", 1)
