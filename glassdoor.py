@@ -25,7 +25,7 @@ def getURL(job, location, locationID, version):
     return url
 
 # Get individual job entry
-def getJobEntry(jobTitleLi, soup, num):
+def getJobEntry(jobTitleLi, version):
     #Get "a" tag containing job title
     entry = jobTitleLi.find("a",{"data-test":"job-link"})
 
@@ -63,7 +63,10 @@ def getJobEntry(jobTitleLi, soup, num):
 
     #To add code to retrieve job description
     #Retrieve link for job post
-    url = "https://www.glassdoor.sg" + entry.get("href")
+    if version == 1:
+        url = "https://www.glassdoor.com" + entry.get("href")
+    elif verion == 2:
+        url = "https://www.glassdoor.sg" + entry.get("href")
 
     #Set user agent and request for link
     user_agent = {'User-Agent': 'Mozilla/5.0'}
@@ -101,11 +104,11 @@ def main(job, location, locationID, version):
         
         # Parse all job entries on page
         for x in range(len(jobTitleLi)):
-            jobEntry = getJobEntry(jobTitleLi[x], soup, x)
+            jobEntry = getJobEntry(jobTitleLi[x], version)
             sleep(randint(1,2))
             writer.writerow(jobEntry)
 
 # Example inputs
 #main("software", "orchard", "7_IC4842485_KO8", 2)
 #main("software", "", "", 2)
-main("programmer", "california", "10_IS2280_KO11", 1)
+main("software programmer", "california", "10_IS2280_KO11", 1)
