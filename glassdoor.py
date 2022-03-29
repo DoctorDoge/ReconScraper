@@ -65,7 +65,7 @@ def getJobEntry(jobTitleLi, version):
     #Retrieve link for job post
     if version == 1:
         url = "https://www.glassdoor.com" + entry.get("href")
-    elif verion == 2:
+    elif version == 2:
         url = "https://www.glassdoor.sg" + entry.get("href")
 
     #Set user agent and request for link
