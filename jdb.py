@@ -76,9 +76,10 @@ def getJDB(job):
     user_agent = {'User-Agent': 'Mozilla/5.0'}
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
+    outputFile = "output-jdb-" + job.strip() + ".csv"
 
     # Save output to CSV file
-    with open('output-jdb.csv', 'w', newline='', encoding="utf-8") as f:
+    with open(outputFile, 'w', newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(header)
     
