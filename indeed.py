@@ -6,12 +6,12 @@ from random import randint
 from time import sleep
 
 # Get URL from user input
-def getURL(job, location, version):
+def getURL(job, version):
     if version == 1:
-        urlString = "https://www.indeed.com/jobs?q={}&l={}"
+        urlString = "https://www.indeed.com/jobs?q={}"
     elif version == 2:
-        urlString = "https://sg.indeed.com/jobs?q={}&l={}"
-    url = urlString.format(job, location)
+        urlString = "https://sg.indeed.com/jobs?q={}"
+    url = urlString.format(job)
     return url
 
 # Get individual job entry
@@ -43,36 +43,40 @@ def getJobEntry(jobTitleDiv, soup, num):
     
     return jobEntry
 
-def main(job, location, version):
-    url = getURL(job, location, version)
+def writeToFile(writer, url, version):
+    while True: 
+        # Parse URL into BeautifulSoup
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        jobTitleDiv = soup.find_all("div", "heading4")
+            
+        # Parse all job entries on page
+        for x in range(len(jobTitleDiv)):
+            jobEntry = getJobEntry(jobTitleDiv, soup, x)
+            writer.writerow(jobEntry)
+            
+        try:
+            if version == 1:
+                url = "https://www.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
+            else:
+                url = "https://sg.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
+            sleep(randint(1,8))
+        except AttributeError:
+            break
+
+# Output user input to file
+def getIndeed(job):
+    intUrl = getURL(job, 1)
+    sgUrl = getURL(job, 2)
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
 
     # Save output to CSV file
-    with open('output.csv', 'w', newline='') as f:
+    with open('output-indeed.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(header)
 
-        while True: 
-            # Parse URL into BeautifulSoup
-            response = requests.get(url)
-            soup = BeautifulSoup(response.text, "html.parser")
-
-            jobTitleDiv = soup.find_all("div", "heading4")
-            
-            # Parse all job entries on page
-            for x in range(len(jobTitleDiv)):
-                jobEntry = getJobEntry(jobTitleDiv, soup, x)
-                writer.writerow(jobEntry)
-            
-            try:
-                if version == 1:
-                    url = "https://www.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
-                elif version == 2:
-                    url = "https://sg.indeed.com" + soup.find('a', {"aria-label": "Next"}).get("href")
-                sleep(randint(1,8))
-            except AttributeError:
-                break 
-
-# Example inputs
-main("c programmer", "texas", 1)
+        # Write international and SG versions to file
+        writeToFile(writer, intUrl, 1)
+        writeToFile(writer, sgUrl, 2)
