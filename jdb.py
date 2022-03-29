@@ -6,14 +6,10 @@ from random import randint
 from time import sleep
 
 # Get URL from user input
-def getURL(job, location):
+def getURL(job):
     job = job.replace(" ", "+")
-    if location == "":
-        urlString = "https://sg.jobsdb.com/j?sp=search&q={}&l="
-    else:
-        urlString = "https://sg.jobsdb.com/j?sp=search&q={}&l={}"
-        location = location.replace(" ", "+")
-        url = urlString.format(job, location)
+    urlString = "https://sg.jobsdb.com/j?sp=search&q={}"
+    url = urlString.format(job)
     return url
 
 # Get individual job entry
@@ -75,14 +71,15 @@ def getJobEntry(jobTitleLi):
     return jobEntry
     
     
-def main(job, location):
-    url = getURL(job, location)
+def getJDB(job):
+    url = getURL(job)
     user_agent = {'User-Agent': 'Mozilla/5.0'}
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
+    outputFile = "output-jdb-" + job.strip() + ".csv"
 
     # Save output to CSV file
-    with open('output-jdb.csv', 'w', newline='', encoding="utf-8") as f:
+    with open(outputFile, 'w', newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(header)
     
@@ -104,5 +101,3 @@ def main(job, location):
                 #sleep(randint(1,8))
             except AttributeError:
                 break 
-
-main("programmer", "pasir ris")
