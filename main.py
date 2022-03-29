@@ -1,5 +1,5 @@
-import sys
 from indeed import getIndeed
+from jdb import getJDB
 
 def printLogo():
     print("----------------------------------------------------------")
@@ -34,6 +34,7 @@ def main():
     print("\nPlease wait for the extraction process to complete...")
 
     getIndeed(companyName)
+    getJDB(companyName)
 
     print("\nExtraction complete!")
 
