@@ -24,19 +24,19 @@ def getNaukri(job):
         writer = csv.writer(f)
         writer.writerow(header)
 
-        print("\033[94mLoading driver...")
+        print("\033[94mLoading driver...\033[0m")
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.implicitly_wait(15)
 
         # Parse URL into BeautifulSoup
-        print("\033[94mLoading page...")
+        print("\033[94mLoading page...\033[0m")
         driver.get(url)
         driver.find_elements(by=By.CLASS_NAME, value="job-description fs12 grey-text")
         soup = BeautifulSoup(driver.page_source, "html.parser")
         response = soup.find(class_='list')
 
         jobArticles = response.find_all("article", class_="jobTuple bgWhite br4 mb-8")
-        print("\033[94mWriting jobs...")
+        print("\033[94mWriting jobs...\033[0m")
 
         # Get individual job details and write to file
         for job in jobArticles:
@@ -46,7 +46,7 @@ def getNaukri(job):
             jobLocation = job.find('li', class_='fleft grey-text br2 placeHolderLi location')
             jobDescription = job.find('div', class_='job-description fs12 grey-text')
             writer.writerow((jobTitle.text, jobCompany.text, jobLocation.span.string, jobDescription.text))
-    print("\033[92mComplete")
+    print("\033[92mComplete\033[0m")
                     # Example inputs
 
 
