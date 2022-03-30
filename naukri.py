@@ -4,16 +4,15 @@ from selenium import webdriver
 
 
 # Get URL from user input
-def getURL(job, location):
-    urlString = "https://www.naukri.com/{}-jobs-in-{}/"
+def getURL(job):
+    urlString = "https://www.naukri.com/{}-jobs"
     job = job.replace(' ', '-')
-    location = location.replace(' ', '-')
-    url = urlString.format(job, location)
+    url = urlString.format(job)
     return url
 
 
-def main(job, location):
-    url = getURL(job, location)
+def main(job):
+    url = getURL(job)
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
 
@@ -43,4 +42,4 @@ def main(job, location):
                     # Example inputs
 
 
-main("c programmer", "singapore")
+main("Singtel")
