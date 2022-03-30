@@ -14,7 +14,7 @@ def getURL(job):
     return url
 
 
-def main(job):
+def getNaukri(job):
     url = getURL(job)
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
@@ -50,4 +50,4 @@ def main(job):
                     # Example inputs
 
 
-main("Singtel")
+# getNaukri("Singtel")

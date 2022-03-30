@@ -1,5 +1,6 @@
 from indeed import getIndeed
 from jdb import getJDB
+from naukri import getNaukri 
 
 def printLogo():
     print("----------------------------------------------------------")
@@ -56,8 +57,9 @@ def printDatabases():
     print("1. Indeed")
     print("2. JobsDB")
     print("3. Glassdoor")
-    print("4. Back to main menu")
-    print("5. Exit")
+    print("4. Naukri")
+    print("5. Back to main menu")
+    print("6. Exit")
     print("------------")
 
 # Get data source from user input
@@ -67,26 +69,40 @@ def extractData(companyName):
         printDatabases()
         inputNumber = input("Please select database to extract from: ")
         if inputNumber == "1":
+
             print("\nExtracting data for " + companyName + " from " + "Indeed")
             print("\nPlease wait for the extraction process to complete... This process might take a while...")
             getIndeed(companyName)
             print("\nExtraction complete!")
             mainMenu(companyName)
+
         elif inputNumber == "2":
+
             print("\nExtracting data for " + companyName + " from " + "JobsDB")
             print("\nPlease wait for the extraction process to complete... This process might take a while...")
             getJDB(companyName)
             print("\nExtraction complete!")
             mainMenu(companyName)
+
         elif inputNumber == "3":
+
             print("\nExtracting data for " + companyName + " from " + "Glassdoor")
             print("\nPlease wait for the extraction process to complete... This process might take a while...")
             print("\nExtraction complete!")
             mainMenu(companyName)
+
         elif inputNumber == "4":
+
+            print("\nExtracting data for " + companyName + " from " + "Naukri")
+            print("\nPlease wait for the extraction process to complete... This process might take a while...")
+            getNaukri(companyName)
+            print("\nExtraction complete!")
             mainMenu(companyName)
+
         elif inputNumber == "5":
-            quit()    
+            mainMenu(companyName)    
+        elif inputNumber == "6":
+            quit()       
         elif inputNumber == "":
             print("\nInput cannot be empty!")
         else:
