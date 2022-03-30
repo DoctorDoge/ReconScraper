@@ -23,6 +23,7 @@ def main(job, location):
         writer.writerow(header)
 
         driver = webdriver.Chrome("chromedriver.exe")
+        driver.implicit_wait(15)
 
         # Parse URL into BeautifulSoup
         driver.get(url)
