@@ -11,7 +11,7 @@ def getURL(job):
     return url
 
 
-def main(job):
+def getNaukri(job):
     url = getURL(job)
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
@@ -22,7 +22,7 @@ def main(job):
         writer.writerow(header)
 
         driver = webdriver.Chrome("chromedriver.exe")
-        driver.implicit_wait(15)
+        driver.implicitly_wait(15)
 
         # Parse URL into BeautifulSoup
         driver.get(url)
@@ -42,4 +42,4 @@ def main(job):
                     # Example inputs
 
 
-main("Singtel")
+# getNaukri("Singtel")
