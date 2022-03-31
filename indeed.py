@@ -71,10 +71,9 @@ def getIndeed(job):
     sgUrl = getURL(job, 2)
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
-    outputFile = "output-indeed-" + job.strip() + ".csv"
 
     # Save output to CSV file
-    with open(outputFile, 'w', newline='', encoding="utf-8") as f:
+    with open('output-indeed.csv', 'w', newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(header)
 
