@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import os
 import glob
@@ -22,6 +23,7 @@ def show():
 
     for file in files:
         dataframe = pd.read_csv(file)
+        dataframe.index = np.arange(1, len(dataframe)+1)
 
         filenames.append('File Name: ' + file.split("\\")[-1] + '\n')
         allFrames.append(dataframe)
@@ -36,7 +38,7 @@ def show():
     print(colours.GREEN + "Tables generated" + colours.BLUE + "\nPrinting tables...\n" + colours.ENDC)
     for (filename, table) in zip(filenames, tables):
         print(filename + table)
-    print(table + colours.GREEN + "\nComplete!" + colours.ENDC)
+    print(colours.GREEN + "\nComplete!" + colours.ENDC)
 
 def showTogether():
     print(colours.BLUE + "Finding files..." + colours.ENDC)
@@ -51,10 +53,11 @@ def showTogether():
 
     print(colours.BLUE + "Setting table style..." + colours.ENDC)
     allFrame = pd.concat(allCsv, axis=0, ignore_index=True)
+    allFrame.index = np.arange(1, len(allFrame)+1)
     pd.options.display.max_columns = None
     pd.options.display.max_rows = None
     print(colours.BLUE + "Generating table...")
-    table = tabulate(allFrame, headers='keys', tablefmt='fancy_grid')
+    table = tabulate(allFrame, headers='firstrow', tablefmt='fancy_grid')
     print(colours.GREEN + "Table generated" + colours.BLUE + "\nPrinting table...\n" + colours.ENDC)
     print(table + colours.GREEN + "\nComplete!" + colours.ENDC)
 

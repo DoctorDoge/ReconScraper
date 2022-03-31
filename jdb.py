@@ -80,7 +80,7 @@ def getJDB(job):
 
     # Save output to CSV file
     with open(outputFile, 'w', newline='', encoding="utf-8") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, quoting=csv.QUOTE_ALL, escapechar='\\')
         writer.writerow(header)
     
         while True:
