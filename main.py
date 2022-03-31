@@ -1,16 +1,18 @@
 from indeed import getIndeed
 from jdb import getJDB
 from naukri import getNaukri
-from display import show
+import display
+
+from fontcolours import colours
 
 def printLogo():
-    print("----------------------------------------------------------")
-    print("  ___ ___ ___ ___  _  _   ___  ___ ___    _   ___ ___ ___ ")
+    print(colours.CYAN + "----------------------------------------------------------")
+    print(colours.GREEN + "  ___ ___ ___ ___  _  _   ___  ___ ___    _   ___ ___ ___ ")
     print(" | _ \ __/ __/ _ \| \| | / __|/ __| _ \  /_\ | _ \ __| _ \\")
     print(" |   / _| (_| (_) | .` | \__ \ (__|   / / _ \|  _/ _||   /")
     print(" |_|_\___\___\___/|_|\_| |___/\___|_|_\/_/ \_\_| |___|_|_\\")
     print("                                                          ")
-    print("----------------------------------------------------------")
+    print(colours.CYAN + "----------------------------------------------------------" + colours.ENDC)
     print("\n")
 
 # Get company name from user input
@@ -23,7 +25,7 @@ def getCompanyName():
             if companyName != "":
                 break
             else:
-                print("\nCompany name cannot be empty!")
+                print(colours.WARNING + "\nCompany name cannot be empty!" + colours.ENDC)
 
     return companyName
 
@@ -45,13 +47,42 @@ def mainMenu(companyName):
             extractData(companyName)
         elif inputNumber == "2":
             #print("Display data")
-            show()
+            showDataOptions(companyName)
         elif inputNumber == "3":
             quit()
         elif inputNumber == "":
-            print("\nInput cannot be empty!")
+            print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)
         else:
-            print("\nInvalid input!")  
+            print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
+
+
+def printDataOptions():
+    print("------------")
+    print("Options")
+    print("1. All-in-One")
+    print("2. Separated by Database")
+    print("3. Back to main menu")
+    print("4. Exit")
+    print("------------")
+
+
+def showDataOptions(companyName):
+    while True:
+        printDataOptions()
+        inputNumber = input("Please select action: ")
+        if inputNumber == "1":
+            display.showTogether()
+        elif inputNumber == "2":
+            display.show()
+        elif inputNumber == "3":
+            mainMenu(companyName)
+        elif inputNumber == "4":
+            quit()
+        elif inputNumber == "":
+            print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)
+        else:
+            print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
+
 
 def printDatabases():
     print("------------")
@@ -72,33 +103,33 @@ def extractData(companyName):
         inputNumber = input("Please select database to extract from: ")
         if inputNumber == "1":
 
-            print("\nExtracting data for " + companyName + " from " + "Indeed")
-            print("\nPlease wait for the extraction process to complete... This process might take a while...")
+            print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "Indeed" + colours.ENDC)
+            print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
             getIndeed(companyName)
-            print("\nExtraction complete!")
+            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
             mainMenu(companyName)
 
         elif inputNumber == "2":
 
-            print("\nExtracting data for " + companyName + " from " + "JobsDB")
-            print("\nPlease wait for the extraction process to complete... This process might take a while...")
+            print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "JobsDB" + colours.ENDC)
+            print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
             getJDB(companyName)
-            print("\nExtraction complete!")
+            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
             mainMenu(companyName)
 
         elif inputNumber == "3":
 
-            print("\nExtracting data for " + companyName + " from " + "Glassdoor")
-            print("\nPlease wait for the extraction process to complete... This process might take a while...")
-            print("\nExtraction complete!")
+            print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "Glassdoor" + colours.ENDC)
+            print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
+            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
             mainMenu(companyName)
 
         elif inputNumber == "4":
 
-            print("\nExtracting data for " + companyName + " from " + "Naukri")
-            print("\nPlease wait for the extraction process to complete... This process might take a while...")
+            print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "Naukri" + colours.ENDC)
+            print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
             getNaukri(companyName)
-            print("\nExtraction complete!")
+            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
             mainMenu(companyName)
 
         elif inputNumber == "5":
@@ -106,9 +137,9 @@ def extractData(companyName):
         elif inputNumber == "6":
             quit()       
         elif inputNumber == "":
-            print("\nInput cannot be empty!")
+            print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)
         else:
-            print("\nInvalid input!")       
+            print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
 
 def main():
     printLogo()
