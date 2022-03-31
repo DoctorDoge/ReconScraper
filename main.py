@@ -1,6 +1,7 @@
 from indeed import getIndeed
 from jdb import getJDB
-from naukri import getNaukri 
+from naukri import getNaukri
+from display import show
 
 def printLogo():
     print("----------------------------------------------------------")
@@ -43,7 +44,8 @@ def mainMenu(companyName):
         if inputNumber == "1":
             extractData(companyName)
         elif inputNumber == "2":
-            print("Display data")
+            #print("Display data")
+            show()
         elif inputNumber == "3":
             quit()
         elif inputNumber == "":
