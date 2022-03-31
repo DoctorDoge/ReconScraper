@@ -2,7 +2,9 @@ import os
 from indeed import getIndeed
 from jdb import getJDB
 from naukri import getNaukri
+import os
 import display
+import glob
 
 from fontcolours import colours
 
@@ -157,8 +159,15 @@ def extractData(companyName):
         else:
             print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
 
+
+def clearExistingCsvs():
+    path = os.getcwd()
+    for file in glob.glob(os.path.join(path, "*.csv")):
+        os.remove(file)
+
 def main():
     printLogo()
+    clearExistingCsvs()
     companyName = getCompanyName()
     # deleteOutputFiles()
     mainMenu(companyName)
