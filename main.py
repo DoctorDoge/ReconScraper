@@ -44,7 +44,9 @@ def printActions():
     print("Actions")
     print("1. Extract data")
     print("2. Display data")
-    print("3. Exit")
+    print("3. Extract technology graphs")
+    print("4. Extract technology word clouds")
+    print("5. Exit")
     print("---------------")
 
 # Get action from user input
@@ -59,7 +61,11 @@ def mainMenu(companyName):
             #print("Display data")
             showDataOptions(companyName)
         elif inputNumber == "3":
-            quit()
+            print("Graphs")
+        elif inputNumber == "4":
+            print("Word clouds")
+        elif inputNumber == "5":
+            quit()    
         elif inputNumber == "":
             print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)
         else:
@@ -154,7 +160,7 @@ def extractData(companyName):
 def main():
     printLogo()
     companyName = getCompanyName()
-    deleteOutputFiles()
+    # deleteOutputFiles()
     mainMenu(companyName)
 
 main()
