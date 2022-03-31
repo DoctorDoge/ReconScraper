@@ -1,3 +1,4 @@
+import os
 from indeed import getIndeed
 from jdb import getJDB
 from naukri import getNaukri
@@ -14,6 +15,15 @@ def printLogo():
     print("                                                          ")
     print(colours.CYAN + "----------------------------------------------------------" + colours.ENDC)
     print("\n")
+
+# Ensure correct company output is read
+def deleteOutputFiles():
+    dirName = os.getcwd()
+    dirFiles = os.listdir(dirName)
+    
+    for file in dirFiles:
+        if file.endswith(".csv"):
+            os.remove(os.path.join(dirName, file))
 
 # Get company name from user input
 def getCompanyName():
@@ -144,6 +154,7 @@ def extractData(companyName):
 def main():
     printLogo()
     companyName = getCompanyName()
+    deleteOutputFiles()
     mainMenu(companyName)
 
 main()
