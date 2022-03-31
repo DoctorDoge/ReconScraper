@@ -85,8 +85,9 @@ def getJobEntry(jobTitleLi, version):
     return jobEntry
     
     
-def main(job, location, locationID, version):
-    url = getURL(job, location, locationID, version)
+def getGlassdoor(job):
+    url = getURL(job, "", "", 1)
+    urlSG = getURL(job, "", "", 2)
     user_agent = {'User-Agent': 'Mozilla/5.0'}
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
@@ -104,11 +105,20 @@ def main(job, location, locationID, version):
         
         # Parse all job entries on page
         for x in range(len(jobTitleLi)):
-            jobEntry = getJobEntry(jobTitleLi[x], version)
+            jobEntry = getJobEntry(jobTitleLi[x], 1)
             sleep(randint(1,2))
             writer.writerow(jobEntry)
 
-# Example inputs
-#main("software", "orchard", "7_IC4842485_KO8", 2)
-#main("software", "", "", 2)
-main("software", "california", "10_IS2280_KO11", 1)
+        # Parse SG URL into BeautifulSoup
+        response = requests.get(urlSG,headers=user_agent)
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        jobTitleLi = soup.find_all("li", "react-job-listing")
+        
+        # Parse all job entries on page
+        for x in range(len(jobTitleLi)):
+            jobEntry = getJobEntry(jobTitleLi[x], 2)
+            sleep(randint(1,2))
+            writer.writerow(jobEntry)
+
+# getGlassdoor("Singtel")
