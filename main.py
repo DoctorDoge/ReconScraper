@@ -7,6 +7,7 @@ import display
 import glob
 
 from fontcolours import colours
+from wcloud import generateWordCloud
 
 def printLogo():
     print(colours.CYAN + "----------------------------------------------------------")
@@ -46,8 +47,8 @@ def printActions():
     print("Actions")
     print("1. Extract data")
     print("2. Display data")
-    print("3. Extract technology graphs")
-    print("4. Extract technology word clouds")
+    print("3. Generate technology graph")
+    print("4. Generate technology word cloud")
     print("5. Exit")
     print("---------------")
 
@@ -65,7 +66,7 @@ def mainMenu(companyName):
         elif inputNumber == "3":
             print("Graphs")
         elif inputNumber == "4":
-            print("Word clouds")
+            generateWordCloud()
         elif inputNumber == "5":
             quit()    
         elif inputNumber == "":
@@ -167,9 +168,8 @@ def clearExistingCsvs():
 
 def main():
     printLogo()
-    clearExistingCsvs()
+    # clearExistingCsvs()
     companyName = getCompanyName()
-    # deleteOutputFiles()
     mainMenu(companyName)
 
 main()

@@ -1,3 +1,5 @@
+import glob
+import os
 import re
 import numpy as np
 import pandas as pd
@@ -10,29 +12,58 @@ import matplotlib.pyplot as plt
 # df = pd.read_csv("output-indeed.csv")
 # print(df[(df['Job Title'].str.contains("analyst", case=False)) | (df['Job Description'].str.contains("Challenger", case=False))])
 
-word = ["analyst", "test"]
+def getTechnologies():
+    lines = []
+    with open("technologies.txt") as file:
+        for line in file:
+            line = line.replace("\n", "")
+            lines.append(line)
 
-# Open CSV file
-with open("output-indeed.csv", encoding="utf-8") as file:
-    csvString = file.read()
-csvString = repr(csvString)
-csvString = csvString.replace("\\n", "")
+    return lines
 
-wordList = []
-techList = ""
+def getFileList():
+    fileList = []
+    path = os.getcwd()
+    for file in glob.glob(os.path.join(path, "*.csv")):
+        fileList.append(file)
 
-# Extract technology keywords
-for i in word:
-    tech = re.findall(i, csvString, re.IGNORECASE)
-    wordList.append(tech)
+    return fileList
 
-# Covert list to string
-for i in wordList:
-    for x in i:
-        techList += x + ", "
+def generateWordCloud():
+    technologies = getTechnologies()
+    fileList = getFileList()
 
-# Generate word cloud
-wordcloud = WordCloud().generate(techList)
-plt.imshow(wordcloud, interpolation='bilinear')
-plt.axis("off")
-plt.show()
+    wordList = []
+    techList = ""
+
+    for file in fileList:
+        # Open CSV file
+        with open(file, encoding="utf-8") as file:
+            csvString = file.read()
+        csvString = repr(csvString)
+        csvString = csvString.replace("\\n", "")
+
+        # Extract technology keywords
+        for i in technologies:
+            tech = re.findall("\\b"+i+"\\b", csvString, re.IGNORECASE)
+            if len(tech) != 0:
+                wordList.append(tech)
+
+    # Covert list to string
+    for i in wordList:
+        for x in i:
+            techList += x + ", "
+    
+    if len(techList) != 0:
+        # Generate word cloud
+        wordcloud = WordCloud(collocations=False).generate(techList)
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        plt.savefig("output-wordcloud.png", format="png")
+        plt.show()
+
+        print("Word cloud saved to output-wordcloud.png")
+    else:
+        print("Technologies cannot be found for company!")
+
+generateWordCloud()
