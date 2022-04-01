@@ -1,6 +1,7 @@
 import glob
 import os
 import re
+from typing import Counter
 import numpy as np
 import pandas as pd
 from os import path
@@ -8,9 +9,6 @@ from PIL import Image
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from csv import reader
 import matplotlib.pyplot as plt
-
-# df = pd.read_csv("output-indeed.csv")
-# print(df[(df['Job Title'].str.contains("analyst", case=False)) | (df['Job Description'].str.contains("Challenger", case=False))])
 
 def getTechnologies():
     lines = []
@@ -29,12 +27,12 @@ def getFileList():
 
     return fileList
 
-def generateWordCloud():
+def generateTechList():
     technologies = getTechnologies()
     fileList = getFileList()
 
     wordList = []
-    techList = ""
+    techString = ""
 
     for file in fileList:
         # Open CSV file
@@ -52,18 +50,35 @@ def generateWordCloud():
     # Covert list to string
     for i in wordList:
         for x in i:
-            techList += x + ", "
-    
-    if len(techList) != 0:
-        # Generate word cloud
-        wordcloud = WordCloud(collocations=False).generate(techList)
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis("off")
-        plt.savefig("output-wordcloud.png", format="png")
-        plt.show()
+            techString += x + " "
 
-        print("Word cloud saved to output-wordcloud.png")
+    return techString
+    
+def generateGraph():
+    techString = generateTechList()
+
+    if len(techString) != 0:
+        techString = techString.lower()
+        words = techString.split()
+
+        # Count word frequency
+        wordCount = Counter(words)
+
+        # Generate graph
+        plt.bar(wordCount.keys(), wordCount.values())
+        plt.xticks(rotation=90)
+        plt.show()
     else:
         print("Technologies cannot be found for company!")
 
-generateWordCloud()
+def generateWordCloud():
+    techString = generateTechList()
+    
+    if len(techString) != 0:
+        # Generate word cloud
+        wordcloud = WordCloud(collocations=False).generate(techString)
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        plt.show()
+    else:
+        print("Technologies cannot be found for company!")

@@ -7,7 +7,8 @@ import display
 import glob
 
 from fontcolours import colours
-from wcloud import generateWordCloud
+from generatetechnologies import generateGraph
+from generatetechnologies import generateWordCloud
 
 def printLogo():
     print(colours.CYAN + "----------------------------------------------------------")
@@ -43,14 +44,14 @@ def getCompanyName():
     return companyName
 
 def printActions():
-    print("---------------")
+    print("--------------------------------------")
     print("Actions")
     print("1. Extract data")
     print("2. Display data")
-    print("3. Generate technology graph")
-    print("4. Generate technology word cloud")
+    print("3. Generate graph of technologies")
+    print("4. Generate word cloud of technologies")
     print("5. Exit")
-    print("---------------")
+    print("--------------------------------------")
 
 # Get action from user input
 def mainMenu(companyName):    
@@ -64,7 +65,7 @@ def mainMenu(companyName):
             #print("Display data")
             showDataOptions(companyName)
         elif inputNumber == "3":
-            print("Graphs")
+            generateGraph()
         elif inputNumber == "4":
             generateWordCloud()
         elif inputNumber == "5":
