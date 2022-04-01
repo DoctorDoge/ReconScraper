@@ -33,7 +33,7 @@ def show():
     pd.options.display.max_rows = None
     print(colours.BLUE + "Generating tables...")
     for frame in allFrames:
-        tables.append(tabulate(frame, headers='keys', tablefmt='fancy_grid'))
+        tables.append(tabulate(frame, headers='firstrow', tablefmt='fancy_grid'))
 
     print(colours.GREEN + "Tables generated" + colours.BLUE + "\nPrinting tables...\n" + colours.ENDC)
     for (filename, table) in zip(filenames, tables):
