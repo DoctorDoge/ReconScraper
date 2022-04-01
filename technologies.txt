@@ -1,13 +1,13 @@
 Javascript
 Python
-Go
+Go Programming
 Golang
 Java
 Kotlin
 PHP
 C#
 C
-C++
+C\++
 Swift
 R
 Ruby
