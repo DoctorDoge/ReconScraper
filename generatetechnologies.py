@@ -2,12 +2,7 @@ import glob
 import os
 import re
 from typing import Counter
-import numpy as np
-import pandas as pd
-from os import path
-from PIL import Image
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-from csv import reader
+from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 def getTechnologies():
@@ -30,6 +25,10 @@ def getFileList():
 def generateTechList():
     technologies = getTechnologies()
     fileList = getFileList()
+    
+    # Check if output files exist
+    if len(fileList) == 0:
+        return "empty"
 
     wordList = []
     techString = ""
@@ -57,6 +56,11 @@ def generateTechList():
 def generateGraph():
     techString = generateTechList()
 
+    # If no output files are found
+    if techString == "empty":
+        print("Please extract data for company first!")
+        return
+
     if len(techString) != 0:
         techString = techString.lower()
         words = techString.split()
@@ -73,6 +77,11 @@ def generateGraph():
 
 def generateWordCloud():
     techString = generateTechList()
+
+    # If no output files are found
+    if techString == "empty":
+        print("Please extract data for company first!")
+        return
     
     if len(techString) != 0:
         # Generate word cloud
