@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 from random import randint
 from time import sleep
+from fontcolours import colours
 
 # Get URL from user input
 def getURL(job):
@@ -76,10 +77,9 @@ def getJDB(job):
     user_agent = {'User-Agent': 'Mozilla/5.0'}
 
     header = ["Job Title", 'Company', 'Location', 'Job Description']
-    outputFile = "output-jdb-" + job.strip() + ".csv"
 
     # Save output to CSV file
-    with open(outputFile, 'w', newline='', encoding="utf-8") as f:
+    with open("output-jdb.csv", 'w', newline='', encoding="utf-8") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL, escapechar='\\')
         writer.writerow(header)
     
@@ -89,7 +89,12 @@ def getJDB(job):
             soup = BeautifulSoup(response.text, "html.parser")
 
             jobTitleLi = soup.find_all("article", "organic-job")
-        
+            
+            # Check if company can be found
+            if len(jobTitleLi) == 0:
+                print(colours.FAIL + "\nCompany cannot be found in JobsDB!" + colours.ENDC)
+                return
+
             # Parse all job entries on page
             for x in range(len(jobTitleLi)):
                 jobEntry = getJobEntry(jobTitleLi[x])
@@ -101,3 +106,5 @@ def getJDB(job):
                 #sleep(randint(1,8))
             except AttributeError:
                 break 
+
+    print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)

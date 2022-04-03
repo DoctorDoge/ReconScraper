@@ -133,7 +133,6 @@ def extractData(companyName):
             print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "JobsDB" + colours.ENDC)
             print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
             getJDB(companyName)
-            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
             mainMenu(companyName)
 
         elif inputNumber == "3":
