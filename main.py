@@ -148,7 +148,6 @@ def extractData(companyName):
             print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "Naukri" + colours.ENDC)
             print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
             getNaukri(companyName)
-            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
             mainMenu(companyName)
 
         elif inputNumber == "5":

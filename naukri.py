@@ -45,7 +45,21 @@ def getNaukri(companyName):
             soup = BeautifulSoup(driver.page_source, "html.parser")
             response = soup.find(class_='list')
 
-            jobArticles = response.find_all("article", class_="jobTuple bgWhite br4 mb-8")
+            # Check if company can be found
+            try:
+                jobArticles = response.find_all("article", class_="jobTuple bgWhite br4 mb-8")
+            except:
+                print(colours.FAIL + "\nCompany cannot be found in Naukri!" + colours.ENDC)
+                driver.close()
+                return
+
+            if len(response.find_all("article", class_="jobTuple bgWhite br4 mb-8")) != 0:
+                jobArticles = response.find_all("article", class_="jobTuple bgWhite br4 mb-8")
+            else:
+                print(colours.FAIL + "\nCompany cannot be found in Naukri!" + colours.ENDC)
+                driver.close()
+                return
+
             driver.close()
             print(colours.BLUE + "Writing jobs..." + colours.ENDC)
             # Get individual job details and write to file
@@ -65,8 +79,8 @@ def getNaukri(companyName):
                 jobDescription = jobDescription + "\nSkills: " + jobTags
                 writer.writerow((jobTitle, jobCompany, jobLocation.span.string, jobDescription))
             i += 1
-    print(colours.GREEN + "Complete" + colours.ENDC)
-                    # Example inputs
+
+    print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
 
 
 # getNaukri("Singtel")
