@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 from random import randint
 from time import sleep
+from fontcolours import colours
 
 # Get URL from user input
 def getURL(job, version):
@@ -50,7 +51,11 @@ def writeToFile(writer, url, version):
         soup = BeautifulSoup(response.text, "html.parser")
 
         jobTitleDiv = soup.find_all("div", "heading4")
-            
+        
+        # Check if company can be found
+        if len(jobTitleDiv) == 0:
+            return 
+
         # Parse all job entries on page
         for x in range(len(jobTitleDiv)):
             jobEntry = getJobEntry(jobTitleDiv, soup, x)
@@ -78,5 +83,10 @@ def getIndeed(job):
         writer.writerow(header)
 
         # Write international and SG versions to file
-        writeToFile(writer, intUrl, 1)
-        writeToFile(writer, sgUrl, 2)
+        intWrite = writeToFile(writer, intUrl, 1)
+        sgWrite = writeToFile(writer, sgUrl, 2)
+
+        if intWrite is None and sgWrite is None:
+            print(colours.FAIL + "\nCompany cannot be found in Indeed!" + colours.ENDC)
+        else:
+            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)

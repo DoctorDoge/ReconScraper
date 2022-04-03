@@ -126,7 +126,6 @@ def extractData(companyName):
             print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "Indeed" + colours.ENDC)
             print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
             getIndeed(companyName)
-            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
             mainMenu(companyName)
 
         elif inputNumber == "2":
