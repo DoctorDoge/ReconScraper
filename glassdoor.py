@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 from random import randint
 from time import sleep
+from fontcolours import colours
 
 # Get URL from user input
 def getURL(job, location, locationID, version):
@@ -114,6 +115,11 @@ def getGlassdoor(job):
         soup = BeautifulSoup(response.text, "html.parser")
 
         jobTitleLi = soup.find_all("li", "react-job-listing")
+
+        # Check if company can be found
+        if len(jobTitleLi) == 0:
+            print(colours.FAIL + "\nCompany cannot be found in Glassdoor!" + colours.ENDC)
+            return
         
         # Parse all job entries on page
         for x in range(len(jobTitleLi)):
@@ -121,4 +127,4 @@ def getGlassdoor(job):
             sleep(randint(1,2))
             writer.writerow(jobEntry)
 
-# getGlassdoor("Singtel")
+    print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)

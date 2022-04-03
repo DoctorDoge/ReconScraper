@@ -1,6 +1,7 @@
 import os
 from indeed import getIndeed
 from jdb import getJDB
+from glassdoor import getGlassdoor
 from naukri import getNaukri
 import os
 import display
@@ -139,7 +140,7 @@ def extractData(companyName):
 
             print(colours.BLUE + "\nExtracting data for " + companyName + " from " + "Glassdoor" + colours.ENDC)
             print(colours.CYAN + "\nPlease wait for the extraction process to complete... This process might take a while..." + colours.ENDC)
-            print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
+            getGlassdoor(companyName)
             mainMenu(companyName)
 
         elif inputNumber == "4":
