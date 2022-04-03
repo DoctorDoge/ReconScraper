@@ -65,12 +65,24 @@ def getNaukri(companyName):
             # Get individual job details and write to file
             for job in jobArticles:
                 job.find('a', class_='title fw500 ellipsis').get('href')
-                jobTitle = job.find('a', class_='title fw500 ellipsis').text
-                jobCompany = job.find('a', class_='subTitle ellipsis fleft').text
+                try:
+                    jobTitle = job.find('a', class_='title fw500 ellipsis').text
+                except:
+                    jobTitle = "Not Found"
+                try:
+                    jobCompany = job.find('a', class_='subTitle ellipsis fleft').text
+                except:
+                    jobCompany = "Not Found"
                 if not companyName.lower() in jobCompany.lower():
                     continue
-                jobLocation = job.find('li', class_='fleft grey-text br2 placeHolderLi location')
-                jobDescription = job.find('div', class_='job-description fs12 grey-text').text
+                try:
+                    jobLocation = job.find('li', class_='fleft grey-text br2 placeHolderLi location')
+                except:
+                    jobLocation = "Not Found"
+                try:
+                    jobDescription = job.find('div', class_='job-description fs12 grey-text').text
+                except:
+                    jobDescription = "Not Found"
                 jobTagsList = job.find('ul', class_='tags has-description')
                 jobTags = []
                 for tag in jobTagsList.findAll('li'):
@@ -82,5 +94,3 @@ def getNaukri(companyName):
 
     print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
 
-
-# getNaukri("Singtel")
