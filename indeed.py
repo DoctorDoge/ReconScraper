@@ -54,7 +54,7 @@ def writeToFile(writer, url, version):
         
         # Check if company can be found
         if len(jobTitleDiv) == 0:
-            return 
+            return "Not Found"
 
         # Parse all job entries on page
         for x in range(len(jobTitleDiv)):
@@ -86,7 +86,7 @@ def getIndeed(job):
         intWrite = writeToFile(writer, intUrl, 1)
         sgWrite = writeToFile(writer, sgUrl, 2)
 
-        if intWrite is None and sgWrite is None:
+        if intWrite == "Not Found" and sgWrite == "Not Found":
             print(colours.FAIL + "\nCompany cannot be found in Indeed!" + colours.ENDC)
         else:
             print(colours.GREEN + "\nExtraction complete!" + colours.ENDC)
