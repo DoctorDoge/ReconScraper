@@ -61,4 +61,13 @@ def showTogether():
     print(colours.GREEN + "Table generated" + colours.BLUE + "\nPrinting table...\n" + colours.ENDC)
     print(table + colours.GREEN + "\nComplete!" + colours.ENDC)
 
+def getCsvFiles():
+    # Get CSV files in directory
+    csvFiles = []
+    
+    for file in glob.glob("*.csv"):
+        csvFiles.append(file)
+
+    return csvFiles
+
 #show()

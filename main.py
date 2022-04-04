@@ -6,7 +6,7 @@ from naukri import getNaukri
 import os
 import display
 import glob
-
+from display import getFiles, getCsvFiles
 from fontcolours import colours
 from generatetechnologies import generateGraph, generateWordCloud, displayTop10Technologies, displayAllTechnologies
 
@@ -47,7 +47,7 @@ def printActions():
     print("--------------------------------------")
     print("Actions")
     print("1. Extract data")
-    print("2. Display data")
+    print("2. Open CSV file")
     print("3. Display top 10 technologies")
     print("4. Display all technologies")
     print("5. Generate graph of technologies")
@@ -65,7 +65,8 @@ def mainMenu(companyName):
             extractData(companyName)
         elif inputNumber == "2":
             #print("Display data")
-            showDataOptions(companyName)
+            # showDataOptions(companyName)
+            showFileOptions(companyName)
         elif inputNumber == "3":
             displayTop10Technologies()  
         elif inputNumber == "4":
@@ -81,6 +82,46 @@ def mainMenu(companyName):
         else:
             print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
 
+def printFileOptions():
+    count = 1
+    csvFiles = getCsvFiles()
+    
+    print("------------")
+    print("Options")
+
+    # Print existing CSV files in directory dynamically
+    for file in csvFiles:
+        print(str(count) + ". " + file)
+        count += 1
+
+    print(str(count) + ". Back to main menu" )
+    count += 1
+    print(str(count) + ". Quit" )
+
+    print("------------")
+
+def showFileOptions(companyName):
+    while True:
+        printFileOptions()
+        inputFile = input("Please select file: ")
+
+        if int(inputFile) == len(getCsvFiles()) + 1:
+            mainMenu(companyName)
+        elif int(inputFile) == len(getCsvFiles()) + 2:
+            quit()
+
+        try:
+            # Open existing CSV files in directory
+            for i in range(len(getCsvFiles())):
+                if int(inputFile) == i + 1:
+                    os.startfile(os.getcwd() + "\\"+ getCsvFiles()[i])
+                    print(colours.GREEN + "\n" + getCsvFiles()[i] + " opened!" + colours.ENDC)
+                    mainMenu(companyName)
+        except:
+            if inputFile == "":
+                print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)
+            else:
+                print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
 
 def printDataOptions():
     print("------------")
