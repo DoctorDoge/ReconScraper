@@ -8,8 +8,7 @@ import display
 import glob
 
 from fontcolours import colours
-from generatetechnologies import generateGraph
-from generatetechnologies import generateWordCloud
+from generatetechnologies import generateGraph, generateWordCloud, displayTop10Technologies, displayAllTechnologies
 
 def printLogo():
     print(colours.CYAN + "----------------------------------------------------------")
@@ -49,9 +48,11 @@ def printActions():
     print("Actions")
     print("1. Extract data")
     print("2. Display data")
-    print("3. Generate graph of technologies")
-    print("4. Generate word cloud of technologies")
-    print("5. Exit")
+    print("3. Display top 10 technologies")
+    print("4. Display all technologies")
+    print("5. Generate graph of technologies")
+    print("6. Generate word cloud of technologies")
+    print("7. Exit")
     print("--------------------------------------")
 
 # Get action from user input
@@ -66,10 +67,14 @@ def mainMenu(companyName):
             #print("Display data")
             showDataOptions(companyName)
         elif inputNumber == "3":
-            generateGraph()
+            displayTop10Technologies()  
         elif inputNumber == "4":
-            generateWordCloud()
+            displayAllTechnologies()     
         elif inputNumber == "5":
+            generateGraph()
+        elif inputNumber == "6":
+            generateWordCloud()
+        elif inputNumber == "7":
             quit()    
         elif inputNumber == "":
             print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)

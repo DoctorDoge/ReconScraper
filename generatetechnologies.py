@@ -4,6 +4,7 @@ import re
 from typing import Counter
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+from fontcolours import colours
 
 def getTechnologies():
     lines = []
@@ -49,17 +50,65 @@ def generateTechList():
     # Covert list to string
     for i in wordList:
         for x in i:
-            techString += x + " "
+            techString += x + ", "
 
     return techString
     
+def displayTop10Technologies():
+    techString = generateTechList()
+
+    # If no output files are found
+    if techString == "empty":
+        print(colours.FAIL + "\nPlease extract data for company first!" + colours.ENDC)
+        return
+
+    # Print top 10 technologies
+    if len(techString) != 0:
+        techString = techString.lower()
+        techList = techString.split(", ")
+        num = 1
+        top = 10
+        topWords = Counter(techList).most_common(top)
+        
+        for word, freq in topWords:
+            print(colours.GREEN + "%d. %s %d" % (num, word, freq) + colours.ENDC)
+            num += 1
+    else:
+        print(colours.FAIL + "\nTechnologies cannot be found for company!" + colours.ENDC)
+
+def displayAllTechnologies():
+    techString = generateTechList()
+
+    # If no output files are found
+    if techString == "empty":
+        print(colours.FAIL + "\nPlease extract data for company first!" + colours.ENDC)
+        return
+
+    # Print all technologies
+    if len(techString) != 0:
+        techString = techString.lower()
+        techList = techString.split(", ")
+        num = 1
+        top = 50
+        topWords = Counter(techList).most_common(top)
+        
+        for word, freq in topWords:
+            if len(word) == 0:
+                break
+            print(colours.GREEN + "%d. %s %d" % (num, word, freq) + colours.ENDC)
+            num += 1
+    else:
+        print(colours.FAIL + "\nTechnologies cannot be found for company!" + colours.ENDC)
+
 def generateGraph():
     techString = generateTechList()
 
     # If no output files are found
     if techString == "empty":
-        print("Please extract data for company first!")
+        print(colours.FAIL + "\nPlease extract data for company first!" + colours.ENDC)
         return
+
+    techString = techString.replace(",", "")
 
     if len(techString) != 0:
         techString = techString.lower()
@@ -73,15 +122,17 @@ def generateGraph():
         plt.xticks(rotation=90)
         plt.show()
     else:
-        print("Technologies cannot be found for company!")
+        print(colours.FAIL + "\nTechnologies cannot be found for company!" + colours.ENDC)
 
 def generateWordCloud():
     techString = generateTechList()
 
     # If no output files are found
     if techString == "empty":
-        print("Please extract data for company first!")
+        print(colours.FAIL + "\nPlease extract data for company first!" + colours.ENDC)
         return
+
+    techString = techString.replace(",", "")
     
     if len(techString) != 0:
         # Generate word cloud
@@ -90,4 +141,5 @@ def generateWordCloud():
         plt.axis("off")
         plt.show()
     else:
-        print("Technologies cannot be found for company!")
+        print(colours.FAIL + "\nTechnologies cannot be found for company!" + colours.ENDC)
+
