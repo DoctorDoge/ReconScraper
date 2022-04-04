@@ -102,6 +102,12 @@ def printFileOptions():
 
 def showFileOptions(companyName):
     while True:
+
+        # Check if CSV files exist
+        if len(getCsvFiles()) == 0:
+            print(colours.FAIL + "\nPlease extract data for company first!" + colours.ENDC)
+            mainMenu(companyName)
+
         printFileOptions()
         inputFile = input("Please select file: ")
 
