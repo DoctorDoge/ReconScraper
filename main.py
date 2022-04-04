@@ -166,6 +166,9 @@ def clearExistingCsvs():
         os.remove(file)
 
 def main():
+    # Enable font colours
+    os.system("Color 00")
+    
     printLogo()
     # clearExistingCsvs()
     companyName = getCompanyName()
