@@ -53,7 +53,7 @@ def show():
             for (filename, table) in zip(filenames, tables):
                 f.write("<h1>Results from " + filename + "</h1>")
                 f.write(table)
-        webbrowser.open('file://' + os.path.realpath('temp.html'))
+        webbrowser.open('file://' + os.path.realpath('separated-database.html'))
     except:
         print(colours.WARNING + "Error writing to file. Please ensure permissions is granted to the program.")
     print(colours.GREEN + "\nComplete!" + colours.ENDC)
@@ -93,7 +93,7 @@ def showTogether():
         with open('combined-database.html', 'w', encoding='utf-8') as f:
             f.write("<h1>Results from all database</h1>")
             f.write(table)
-        webbrowser.open('file://' + os.path.realpath('temp.html'))
+        webbrowser.open('file://' + os.path.realpath('combined-database.html'))
     except:
         print(colours.WARNING + "Error writing to file. Please ensure permissions is granted to the program.")
         return

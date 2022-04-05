@@ -213,9 +213,11 @@ def extractData(companyName):
             print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
 
 
-def clearExistingCsvs():
+def clearExistingFiles():
     path = os.getcwd()
     for file in glob.glob(os.path.join(path, "*.csv")):
+        os.remove(file)
+    for file in glob.glob(os.path.join("*.html")):
         os.remove(file)
 
 def main():
@@ -223,7 +225,7 @@ def main():
     os.system("Color 00")
     
     printLogo()
-    # clearExistingCsvs()
+    #clearExistingFiles()
     companyName = getCompanyName()
     mainMenu(companyName)
 
