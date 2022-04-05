@@ -1,6 +1,5 @@
 import csv
 import requests
-import re
 from bs4 import BeautifulSoup
 from random import randint
 from time import sleep
