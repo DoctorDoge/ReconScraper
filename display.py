@@ -16,7 +16,11 @@ def getFiles():
 
 def show():
     print(colours.BLUE + "Finding files..." + colours.ENDC)
-    files = getFiles()
+    try:
+        files = getFiles()
+    except FileNotFoundError:
+        print(colours.WARNING + "Files not found! Please run Extract Data first!" + colours.ENDC)
+        return
 
     # If no output files are found
     if len(files) == 0:
@@ -29,33 +33,38 @@ def show():
     tables = []
     allFrames = []
 
-    for file in files:
-        dataframe = pd.read_csv(file)
-        dataframe.index = np.arange(1, len(dataframe)+1)
+    try:
+        for file in files:
+            dataframe = pd.read_csv(file)
+            dataframe.index = np.arange(1, len(dataframe)+1)
 
-        filenames.append('File Name: ' + file.split("\\")[-1] + '\n')
-        allFrames.append(dataframe)
+            filenames.append('File Name: ' + file.split("\\")[-1] + '\n')
+            allFrames.append(dataframe)
+    except OSError:
+        print(colours.WARNING + "Error reading files. Please redo extract data and try again." + colours.ENDC)
 
-    print(colours.BLUE + "Setting tables style..." + colours.ENDC)
-    pd.options.display.max_columns = None
-    pd.options.display.max_rows = None
-    print(colours.BLUE + "Generating tables...")
+    print(colours.BLUE + "Setting tables style...\n Generating tables" + colours.ENDC)
     for frame in allFrames:
-        tables.append(tabulate(frame, headers='firstrow', tablefmt='fancy_grid'))
+        tables.append(frame.to_html(justify='left').replace('\\n', '<br>').replace('\\r', ''))
 
     print(colours.GREEN + "Tables generated" + colours.BLUE + "\nPrinting tables...\n" + colours.ENDC)
-    for (filename, table) in zip(filenames, tables):
-        print(filename + table)
-    with open('temp.html', 'w', encoding='utf-8') as f:
-        for (filename, frame) in zip(filenames, allFrames):
-            f.write("<h1>Results from: " + filename + "</h1>")
-            f.write(frame.to_html(justify='left'))
-    webbrowser.open('file://' + os.path.realpath('temp.html'))
+    try:
+        with open('separated-database.html', 'w', encoding='utf-8') as f:
+            for (filename, table) in zip(filenames, tables):
+                f.write("<h1>Results from " + filename + "</h1>")
+                f.write(table)
+        webbrowser.open('file://' + os.path.realpath('temp.html'))
+    except:
+        print(colours.WARNING + "Error writing to file. Please ensure permissions is granted to the program.")
     print(colours.GREEN + "\nComplete!" + colours.ENDC)
 
 def showTogether():
     print(colours.BLUE + "Finding files..." + colours.ENDC)
-    files = getFiles()
+    try:
+        files = getFiles()
+    except FileNotFoundError:
+        print(colours.WARNING + "Files not found! Please run Extract Data first!")
+        return
 
     # If no output files are found
     if len(files) == 0:
@@ -66,23 +75,29 @@ def showTogether():
     print(colours.BLUE + "Reading files..." + colours.ENDC)
     allCsv = []
 
-    for file in files:
-        dataframe = pd.read_csv(file, header=0)
-        allCsv.append(dataframe)
+    try:
+        for file in files:
+            dataframe = pd.read_csv(file, header=0)
+            allCsv.append(dataframe)
+    except OSError:
+        print(colours.WARNING + "Error reading files. Please redo extract data and try again." + colours.ENDC)
+        return
 
     print(colours.BLUE + "Setting table style..." + colours.ENDC)
     allFrame = pd.concat(allCsv, axis=0, ignore_index=True)
     allFrame.index = np.arange(1, len(allFrame)+1)
-    pd.options.display.max_columns = None
-    pd.options.display.max_rows = None
     print(colours.BLUE + "Generating table...")
-    table = tabulate(allFrame, headers='firstrow', tablefmt='fancy_grid')
+    table = allFrame.to_html(justify='left').replace('\\n', '<br>').replace('\\r', '')
     print(colours.GREEN + "Table generated" + colours.BLUE + "\nPrinting table...\n" + colours.ENDC)
-    with open('temp.html', 'w', encoding='utf-8') as f:
-        f.write("<h1>Results from all database</h1>")
-        f.write(allFrame.to_html(classes='table table-striped'))
-    webbrowser.open('file://' + os.path.realpath('temp.html'))
-    print(table + colours.GREEN + "\nComplete!" + colours.ENDC)
+    try:
+        with open('combined-database.html', 'w', encoding='utf-8') as f:
+            f.write("<h1>Results from all database</h1>")
+            f.write(table)
+        webbrowser.open('file://' + os.path.realpath('temp.html'))
+    except:
+        print(colours.WARNING + "Error writing to file. Please ensure permissions is granted to the program.")
+        return
+    print(colours.GREEN + "\nComplete!" + colours.ENDC)
 
 def getCsvFiles():
     # Get CSV files in directory
@@ -93,4 +108,4 @@ def getCsvFiles():
 
     return csvFiles
 
-#show()
+#showTogether()
