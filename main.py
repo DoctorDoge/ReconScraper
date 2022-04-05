@@ -47,12 +47,13 @@ def printActions():
     print("--------------------------------------")
     print("Actions")
     print("1. Extract data")
-    print("2. Open CSV file")
-    print("3. Display top 10 technologies")
-    print("4. Display all technologies")
-    print("5. Generate graph of technologies")
-    print("6. Generate word cloud of technologies")
-    print("7. Exit")
+    print("2. Open as CSV")
+    print("3. Open as HTML")
+    print("4. Display top 10 technologies")
+    print("5. Display all technologies")
+    print("6. Generate graph of technologies")
+    print("7. Generate word cloud of technologies")
+    print("8. Exit")
     print("--------------------------------------")
 
 # Get action from user input
@@ -64,18 +65,18 @@ def mainMenu(companyName):
         if inputNumber == "1":
             extractData(companyName)
         elif inputNumber == "2":
-            #print("Display data")
-            # showDataOptions(companyName)
             showFileOptions(companyName)
         elif inputNumber == "3":
-            displayTop10Technologies()  
+            showDataOptions(companyName)
         elif inputNumber == "4":
-            displayAllTechnologies()     
+            displayTop10Technologies()  
         elif inputNumber == "5":
-            generateGraph()
+            displayAllTechnologies()     
         elif inputNumber == "6":
-            generateWordCloud()
+            generateGraph()
         elif inputNumber == "7":
+            generateWordCloud()
+        elif inputNumber == "8":
             quit()    
         elif inputNumber == "":
             print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)

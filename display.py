@@ -17,6 +17,12 @@ def getFiles():
 def show():
     print(colours.BLUE + "Finding files..." + colours.ENDC)
     files = getFiles()
+
+    # If no output files are found
+    if len(files) == 0:
+        print(colours.FAIL + "\nPlease extract data for company first!" + colours.ENDC)
+        return
+
     print(colours.GREEN + str(len(files)) + " files found!" + colours.ENDC)
     print(colours.BLUE + "Reading files..." + colours.ENDC)
     filenames = []
@@ -50,6 +56,12 @@ def show():
 def showTogether():
     print(colours.BLUE + "Finding files..." + colours.ENDC)
     files = getFiles()
+
+    # If no output files are found
+    if len(files) == 0:
+        print(colours.FAIL + "\nPlease extract data for company first!" + colours.ENDC)
+        return
+
     print(colours.BLUE + str(len(files)) + " files found." + colours.ENDC)
     print(colours.BLUE + "Reading files..." + colours.ENDC)
     allCsv = []
