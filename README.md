@@ -28,6 +28,13 @@ Recon Scraper can generate a graph or word cloud of technologies to represent th
 ```
 pip install -r requirements.txt
 ```
+Note: If the installation of the wordcloud package were to fail, please download the correct wheel file for your version of Python using the link below. To install the wheel file, run the command below. 
+
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#wordcloud
+
+```
+pip install <wheel file>
+```
 
 ## How To Run
 
