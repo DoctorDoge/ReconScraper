@@ -1,12 +1,8 @@
 import webbrowser
-
 import numpy as np
 import pandas as pd
 import os
 import glob
-
-from tabulate import tabulate
-
 from fontcolours import colours
 
 

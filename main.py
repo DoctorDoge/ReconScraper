@@ -6,7 +6,7 @@ from naukri import getNaukri
 import os
 import display
 import glob
-from display import getFiles, getCsvFiles
+from display import getCsvFiles
 from fontcolours import colours
 from generatetechnologies import generateGraph, generateWordCloud, displayTop10Technologies, displayAllTechnologies
 
