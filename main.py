@@ -87,7 +87,7 @@ def printFileOptions():
     count = 1
     csvFiles = getCsvFiles()
     
-    print("------------")
+    print("-----------------------")
     print("Options")
 
     # Print existing CSV files in directory dynamically
@@ -99,7 +99,7 @@ def printFileOptions():
     count += 1
     print(str(count) + ". Quit" )
 
-    print("------------")
+    print("-----------------------")
 
 def showFileOptions(companyName):
     while True:
@@ -131,13 +131,13 @@ def showFileOptions(companyName):
                 print(colours.WARNING + "\nInvalid input!" + colours.ENDC)
 
 def printDataOptions():
-    print("------------")
+    print("------------------------")
     print("Options")
     print("1. All-in-One")
     print("2. Separated by Database")
     print("3. Back to main menu")
     print("4. Exit")
-    print("------------")
+    print("------------------------")
 
 
 def showDataOptions(companyName):
@@ -159,7 +159,7 @@ def showDataOptions(companyName):
 
 
 def printDatabases():
-    print("------------")
+    print("--------------------")
     print("Databases")
     print("1. Indeed")
     print("2. JobsDB")
@@ -167,7 +167,7 @@ def printDatabases():
     print("4. Naukri")
     print("5. Back to main menu")
     print("6. Exit")
-    print("------------")
+    print("--------------------")
 
 # Get data source from user input
 def extractData(companyName):
