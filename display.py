@@ -1,3 +1,5 @@
+import webbrowser
+
 import numpy as np
 import pandas as pd
 import os
@@ -38,6 +40,11 @@ def show():
     print(colours.GREEN + "Tables generated" + colours.BLUE + "\nPrinting tables...\n" + colours.ENDC)
     for (filename, table) in zip(filenames, tables):
         print(filename + table)
+    with open('temp.html', 'w', encoding='utf-8') as f:
+        for (filename, frame) in zip(filenames, allFrames):
+            f.write("<h1>Results from: " + filename + "</h1>")
+            f.write(frame.to_html(justify='left'))
+    webbrowser.open('file://' + os.path.realpath('temp.html'))
     print(colours.GREEN + "\nComplete!" + colours.ENDC)
 
 def showTogether():
@@ -59,6 +66,10 @@ def showTogether():
     print(colours.BLUE + "Generating table...")
     table = tabulate(allFrame, headers='firstrow', tablefmt='fancy_grid')
     print(colours.GREEN + "Table generated" + colours.BLUE + "\nPrinting table...\n" + colours.ENDC)
+    with open('temp.html', 'w', encoding='utf-8') as f:
+        f.write("<h1>Results from all database</h1>")
+        f.write(allFrame.to_html(classes='table table-striped'))
+    webbrowser.open('file://' + os.path.realpath('temp.html'))
     print(table + colours.GREEN + "\nComplete!" + colours.ENDC)
 
 def getCsvFiles():
