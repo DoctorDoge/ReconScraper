@@ -123,7 +123,6 @@ def showFileOptions(companyName):
                 if int(inputFile) == i + 1:
                     os.startfile(os.getcwd() + "\\"+ getCsvFiles()[i])
                     print(colours.GREEN + "\n" + getCsvFiles()[i] + " opened!" + colours.ENDC)
-                    mainMenu(companyName)
         except:
             if inputFile == "":
                 print(colours.WARNING + "\nInput cannot be empty!" + colours.ENDC)
