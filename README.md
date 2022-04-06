@@ -48,3 +48,17 @@ python main.py
 
 ### Using Python IDE: 
 Run main.py
+
+
+# Project Video
+
+The Project Video is created to demonstrate the use of Recon Scraper and how it works.
+
+## Available on YouTube
+
+The video is uploaded to YouTube and there are two versions available, a subtitled version and a non-subtitled version. For the non-subtitled version, the subtitles are still made available as YouTube captions and can be turned on and off any time while watching the video on YouTube. The links to the videos on YouTube are listed below:
+
+- With subtitles:
+[![Watch the video](https://img.youtube.com/vi/SglC-003eis/maxresdefault.jpg)](https://youtu.be/SglC-003eis)
+- Without subtitles:
+[![Watch the video](https://img.youtube.com/vi/AyuAPEJfG2Q/maxresdefault.jpg)](https://youtu.be/AyuAPEJfG2Q)
