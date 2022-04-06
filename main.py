@@ -20,15 +20,6 @@ def printLogo():
     print(colours.CYAN + "----------------------------------------------------------" + colours.ENDC)
     print("\n")
 
-# Ensure correct company output is read
-def deleteOutputFiles():
-    dirName = os.getcwd()
-    dirFiles = os.listdir(dirName)
-    
-    for file in dirFiles:
-        if file.endswith(".csv"):
-            os.remove(os.path.join(dirName, file))
-
 # Get company name from user input
 def getCompanyName():
     companyName = ""
@@ -224,7 +215,10 @@ def main():
     os.system("Color 00")
     
     printLogo()
-    #clearExistingFiles()
+
+    # Delete output files to prevent conflict
+    clearExistingFiles()
+
     companyName = getCompanyName()
     mainMenu(companyName)
 
