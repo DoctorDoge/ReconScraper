@@ -102,7 +102,6 @@ def getJDB(job):
 
             try:
                 url = "https://sg.jobsdb.com/" + soup.find('a', "next-page-button").get("href")
-                #sleep(randint(1,8))
             except AttributeError:
                 break 
 
