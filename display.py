@@ -103,5 +103,3 @@ def getCsvFiles():
         csvFiles.append(file)
 
     return csvFiles
-
-#showTogether()
