@@ -71,6 +71,8 @@ def displayTop10Technologies():
         topWords = Counter(techList).most_common(top)
         
         for word, freq in topWords:
+            if len(word) == 0:
+                break
             print(colours.GREEN + "%d. %s %d" % (num, word, freq) + colours.ENDC)
             num += 1
     else:
